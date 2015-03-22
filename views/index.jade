@@ -32,11 +32,16 @@ block content
 
 	div.content-block
 
+		- each tweet in data.tweets
+			div.user-item
+				p #{tweet}
+					
+
 		h2 Your sightings
 
 			div.user-feed
-				- each imageUrl in instagrams
+				- each imageUrl in data.instagrams
 					div.user-item
 						img(src=imageUrl)
-					
+				
 
