@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.user-item {
+  display: inline-block;
+  margin: 10px;
+}

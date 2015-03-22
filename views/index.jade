@@ -34,12 +34,9 @@ block content
 
 		h2 Your sightings
 
-		div.user-feed
-			div.user-item
-				p tweet
-			div.user-item
-				p instagram
-			div.user-item
-				p tweet
-			div.user-item
-				p instagram
+			div.user-feed
+				- each imageUrl in instagrams
+					div.user-item
+						img(src=imageUrl)
+					
+

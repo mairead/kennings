@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -61,6 +63,15 @@ app.use(function(err, req, res, next) {
 // var server = app.listen(app.get('port'), function() {
 //   console.log('Express server listening on port ' + server.address().port);
 // });
+
+
+
+//Instagram authentication details
+
+// CLIENT ID b0a36a7bba44441fa73993fd09143663
+// CLIENT SECRET 8d714a8a57e54749a02d028ba0548e93
+// WEBSITE URL http://www.eightleggedhorse.co.uk/
+// REDIRECT URI  http://www.eightleggedhorse.co.uk/
 
 
 module.exports = app;
