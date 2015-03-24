@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "engines": {
-    "node": "0.8.x",
+    "node": "0.10.x",
     "npm": "2.2.x"
   },
   "dependencies": {
@@ -20,7 +20,6 @@
     "native-promise-only": "0.7.6-a",
     "node-compass": "0.2.3",
     "serve-favicon": "~2.2.0",
-    "twitter": "1.2.5",
-    "deep-extend": "0.3.2"
+    "twitter": "1.2.5"
   }
 }
