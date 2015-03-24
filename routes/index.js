@@ -49,7 +49,7 @@ var instagramRequest = new Promise(function(resolve,reject){
 // });
 
 var twitterRequest = new Promise(function(resolve,reject){
-	client.get('search/tweets', {'q':'#walthamstow', 'count': '20'}, function(error, tweets, response){
+	client.get('search/tweets', {'q':'#walthamstow', 'count': '10'}, function(error, tweets, response){
 	  if (!error) {
 	  	// console.log(tweets);
 	  	var tweetText = filterTwitterText(tweets.statuses);
