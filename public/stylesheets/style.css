@@ -36,6 +36,10 @@ a {
   color: #507F51;
 }
 
+p {
+  color: #7F746B;
+}
+
 .content-block {
   width: 960px;
   margin: 0 auto;
@@ -59,10 +63,11 @@ h1 {
   text-transform: uppercase;
   text-align: center;
   padding: 20px;
-  border-bottom: 1px solid #7F746B;
+  color: #7F746B;
 }
 
 h2 {
+  margin-bottom: 30px;
   text-align: center;
   font-family: 'albertus_mediumregular', "albertus medium", georgia, serif;
   text-transform: uppercase;
