@@ -11,7 +11,26 @@
        url('Albertus Medium Regular-webfont.svg#albertus_mediumregular') format('svg');
   font-weight: normal;
   font-style: normal;
+}
 
+//utils
+
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
 }
 
 body {
@@ -57,4 +76,14 @@ h2{
 	text-align: center;
 	font-family: 'albertus_mediumregular', "albertus medium", georgia, serif;
 	text-transform: uppercase;
+}
+
+.float-img-left{
+	float: left;
+	margin: 0 20px 20px 0;
+}
+
+.float-img-right{
+	float: right;
+	margin: 0 0 20px 20px;
 }
