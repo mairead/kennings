@@ -1,47 +1,48 @@
 extends layout
 
 block content
-	h1 Picturing Wilcumestouue
+	div.content-block
+	
+		h1 Picturing Wilcumestouue
 
 	div.content-block
+		div.text-block
 
-		h2 Introduction
+			p Come and join Eight Legged Horse arts organisation on a nature trail across the Walthamstow Marshes. Learn how to draw the flowers or creatures you find there and write a Viking Kenning to accompany your creations. Upload your pictures to our interactive nature map using the hashtag #Eight17 on Instagram or Twitter and see if we can chart the wildlife of the marshes! 
 
-		p Come and join Eight Legged Horse arts organisation on a nature trail across the Walthamstow Marshes. Learn how to draw the flowers or creatures you find there and write a Viking Kenning to accompany your creations. Upload your pictures to our interactive nature map using the hashtag #Eight17 on Instagram or Twitter and see if we can chart the wildlife of the marshes! 
+		div.text-block
+			h2 What is a Kenning?
 
-		h3 What is a Kenning?
+			p Kennings are riddle-like phrases used by Viking and Anglo-Saxon poets to refer to or describe something without naming it directly. For example, a crow becomes a ‘swan of blood’, a snake is described as a ‘valley-trout’. The technique is easy to learn and after a small demonstration children can easily create their own.
 
-		p Kennings are riddle-like phrases used by Viking and Anglo-Saxon poets to refer to or describe something without naming it directly. For example, a crow becomes a ‘swan of blood’, a snake is described as a ‘valley-trout’. The technique is easy to learn and after a small demonstration children can easily create their own.
+		div.text-block
+			h2 Who is Eight Legged Horse?
 
-		h3 Who is Eight Legged Horse?
+			p Erica Read works as a freelance illustrator and conservator and has worked for the illustrator Sir Quentin Blake since 2011. Most recently she designed and built a 10 foot polar bear costume for the band British Sea Power.
 
-		p Erica Read works as a freelance illustrator and conservator and has worked for the illustrator Sir Quentin Blake since 2011. Most recently she designed and built a 10 foot polar bear costume for the band British Sea Power.
+			p Emma Hammond is an experimental poet with her second book coming out this year. She mentors at the Ministry of Stories and ran a series of workshops about the Kenning in conjunction with Cambridge University.
 
-		p Emma Hammond is an experimental poet with her second book coming out this year. She mentors at the Ministry of Stories and ran a series of workshops about the Kenning in conjunction with Cambridge University.
+			p Mairead Buchan is a creative web developer, specialising in exciting interactive experiences. When not making websites Mairead likes to make other things: Costume design, Set design, Game design and other toys.
 
-		p Mairead Preece is a creative web developer, specialising in exciting interactive experiences. When not making websites Mairead likes to make other things: Costume design, Set design, Game design and other toys.
+		div.text-block
+			h2 What if I can’t make the events?
 
-		h3 What if I can’t make the events?
-
-		p If you can't make the events then we would love for you to still take part by exploring the marshes yourself and drawing or writing your own kennings. Don’t forget to let us see them using the hashtag Eight17.
-
-	div.content-block
-
-		h2 The wildlife trail map
-		p Map of Walthamstow marshes here
+			p If you can't make the events then we would love for you to still take part by exploring the marshes yourself and drawing or writing your own kennings. Don’t forget to let us see them using the hashtag Eight17.
 
 	div.content-block
+		div.text-block
+			p Map of Walthamstow marshes here
 
-		- each tweet in data.tweets
-			div.user-item
-				p #{tweet}
-					
+	div.content-block
+		div.text-block
+			h2 Sightings
 
-		h2 Your sightings
+			- each tweet in data.tweets
+				div.user-item
+					p #{tweet}
 
-			div.user-feed
-				- each imageUrl in data.instagrams
-					div.user-item
-						img(src=imageUrl)
-				
+			- each imageUrl in data.instagrams
+				div.user-item
+					img(src=imageUrl)
+			
 
