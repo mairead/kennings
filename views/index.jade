@@ -3,7 +3,8 @@ extends layout
 block content
 	div.content-block
 	
-		h1 Picturing Wilcumestouue
+		h1 Eight legged nature trail
+		h2.tagline Picturing WILCUMESTOUUE
 
 	div.content-block
 		div.text-block
@@ -43,12 +44,14 @@ block content
 		div.text-block
 			h2 Sightings
 
-			- each tweet in data.tweets
-				div.user-item
-					p #{tweet}
+			#masonry-layout
 
-			- each imageUrl in data.instagrams
-				div.user-item
-					img(src=imageUrl)
+				- each item in data.random
+					div.user-item
+						p #{item.txt}
+						-if (typeof(item.imgUrl) !== 'undefined'){
+							img.user-imgs(src=item.imgUrl)
+						-}
+						
 			
 

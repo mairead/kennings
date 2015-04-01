@@ -63,8 +63,15 @@ p{
 }
 
 .user-item{
+	width: 150px;
 	display: inline-block;
-	// margin: 10px;
+	border: 1px solid #ffe9d7;
+	background: #fefaf7;
+	margin-bottom: 24px;
+	p{
+		font-size: 12px;
+		padding: 12px;
+	}
 }
 
 h1{
@@ -75,11 +82,16 @@ h1{
 	color: #7F746B;
 }
 
-h2{
+
+h2, .tagline{
 	margin-bottom: 30px;
 	text-align: center;
 	font-family: 'albertus_mediumregular', "albertus medium", georgia, serif;
 	text-transform: uppercase;
+}
+
+.tagline{
+	text-align: center;
 }
 
 .float-img-left{

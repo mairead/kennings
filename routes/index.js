@@ -15,22 +15,18 @@ var client = new Twitter({
 });
 
 function filterThumbnails(data){
-	var images = [];
-
+	var instagrams = [];
 	data.forEach(function(item){
-		images.push(item.images.thumbnail.url);
-	})
-	return images;
+		instagrams.push({imgUrl:item.images.thumbnail.url, txt:item.caption.text});
+	});
+	return instagrams;
 }
 
 function filterTwitterText(tweets){
 	var tweetText = [];
-	// console.log(tweets)
-
 	tweets.forEach(function(item){
-		tweetText.push(item.text);
-	})
-
+		tweetText.push({txt:item.text});
+	});
 	return tweetText;
 }
 
@@ -38,15 +34,12 @@ var instagramRequest = new Promise(function(resolve,reject){
     instagram.tags.recent({
 		  name: 'Eight17',
 		  complete: function(data){
+
 		    var instagrams = filterThumbnails(data);
 		    resolve(instagrams);
 		  }
 		});
 });
-
-// instagramRequest.then(function(msg){
-//     console.log(msg); 
-// });
 
 var twitterRequest = new Promise(function(resolve,reject){
 	client.get('search/tweets', {'q':'#walthamstow', 'count': '10'}, function(error, tweets, response){
@@ -58,21 +51,43 @@ var twitterRequest = new Promise(function(resolve,reject){
 	});
 });
 
-// twitterRequest.then(function(msg){
-//     console.log(msg); 
-// });
+//https://github.com/coolaj86/knuth-shuffle
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex ;
 
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+
+function randomiseContent(arrayOfResults){
+	var fullContent = [];
+	fullContent = arrayOfResults[0].concat(arrayOfResults[1]);
+	shuffle(fullContent);
+	return fullContent;
+}
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var instagrams, tweets;
 
 	Promise.all([instagramRequest, twitterRequest]).then(function(arrayOfResults) {
-		console.log(arrayOfResults[1][0]);
-	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1]}});
+		var contentFeed = randomiseContent(arrayOfResults);
+		console.log(contentFeed);
+	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1], random: contentFeed}});
 	});
-
-	
   
 });
 
