@@ -53,8 +53,11 @@ p {
 .text-block {
   background: #fff;
   padding: 10px 30px;
-  border-radius: 2px;
-  margin: 0 30px 30px 30px;
+  margin: 0 30px 0 30px;
+}
+
+.masonry-block {
+  background: none;
 }
 
 .user-item {
