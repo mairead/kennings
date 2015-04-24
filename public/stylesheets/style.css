@@ -46,24 +46,70 @@ p {
   padding-bottom: 20px;
 }
 
+.masonry-layout {
+  margin: 0 30px;
+}
+
 .text-block {
   background: #fff;
-  border: 1px solid #7F746B;
   padding: 10px 30px;
   border-radius: 2px;
   margin: 0 30px 30px 30px;
 }
 
 .user-item {
-  width: 150px;
   display: inline-block;
-  border: 1px solid #ffe9d7;
-  background: #fefaf7;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 .user-item p {
+  margin: 0 0 5px 0;
+  font-size: 13px;
+  word-wrap: break-word;
+}
+.user-item .username, .user-item .title {
   font-size: 12px;
-  padding: 12px;
+  color: #7F746B;
+  opacity: 0.8;
+}
+.user-item .title {
+  background: #507F51;
+  color: #FEFAF7;
+  padding: 0 5px;
+  display: block;
+}
+.user-item img {
+  max-width: 100%;
+}
+
+.large-item {
+  width: 306px;
+}
+
+.tweet-item, .small-item {
+  width: 140px;
+}
+
+.instagram-item {
+  position: relative;
+}
+.instagram-item .username {
+  padding: 3px;
+  background: #fff;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.tweet-item {
+  background: #7F746B;
+}
+.tweet-item p {
+  color: #FEFAF7;
+  padding: 0 5px;
+}
+.tweet-item .username {
+  color: #FEFAF7;
 }
 
 h1 {

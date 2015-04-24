@@ -4,9 +4,9 @@ imagesLoaded( userImgs, function() {
 	var container = document.querySelector('#masonry-layout');
 	var msnry = new Masonry( container, {
 	  // options
-	  columnWidth: 148,
+	  columnWidth: 140,
 	  itemSelector: '.user-item',
-	  gutter: 24
+	  gutter: 20
 	});
 });
 

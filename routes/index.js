@@ -17,34 +17,48 @@ var client = new Twitter({
 function filterThumbnails(data){
 	var instagrams = [];
 	data.forEach(function(item){
-		instagrams.push({imgUrl:item.images.thumbnail.url, txt:item.caption.text});
+		var randomSize = Math.round(Math.random() *10) >5 ? 'small': 'large';
+		instagrams.push({
+			imgUrl:item.images.low_resolution.url, 
+			txt:item.caption.text, 
+			type: 'instagram', 
+			imgSize: randomSize,
+			link: item.link,
+			user: item.caption.from.username
+		});
 	});
 	return instagrams;
 }
 
 function filterTwitterText(tweets){
 	var tweetText = [];
+	
 	tweets.forEach(function(item){
-		tweetText.push({txt:item.text});
+		tweetText.push({
+			txt:item.text,
+			 type: 'tweet',
+			 user: item.user.screen_name
+			});
 	});
 	return tweetText;
 }
 
 var instagramRequest = new Promise(function(resolve,reject){
     instagram.tags.recent({
-		  name: 'Eight17',
+		  name: 'eight17',
 		  complete: function(data){
 
-		    var instagrams = filterThumbnails(data);
+		    var instagrams = filterThumbnails(data.slice(0,3));
 		    resolve(instagrams);
 		  }
 		});
 });
 
 var twitterRequest = new Promise(function(resolve,reject){
-	client.get('search/tweets', {'q':'#walthamstow', 'count': '10'}, function(error, tweets, response){
+	client.get('search/tweets', {'q':'#eight17', 'count': '10'}, function(error, tweets, response){
+		// console.log(error, tweets, response);
 	  if (!error) {
-	  	// console.log(tweets);
+	  	// console.log("TWEETS", tweets);
 	  	var tweetText = filterTwitterText(tweets.statuses);
 	    resolve(tweetText);
 	  }
@@ -85,7 +99,7 @@ router.get('/', function(req, res, next) {
 
 	Promise.all([instagramRequest, twitterRequest]).then(function(arrayOfResults) {
 		var contentFeed = randomiseContent(arrayOfResults);
-		console.log(contentFeed);
+		//console.log(contentFeed);
 	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1], random: contentFeed}});
 	});
   
