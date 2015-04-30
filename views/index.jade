@@ -1,13 +1,10 @@
 extends layout
 
 block content
-	div.content-block
-	
-		h1 Eight legged nature trail
-		
-	div.content-block
+
+	div.content-block.top-block
 		div.text-block.cf
-			h2 Picturing WILCUMESTOUUE
+			h2#introduction Picturing WILCUMESTOUUE
 
 			p Come and join Eight Legged Horse arts organisation as we illustrate the natural world of Walthamstow Marshes and learn how to write a Viking Kenning to accompany your creations. Upload your pictures and kennings to our interactive nature map using the hashtag #Eight17 on Instagram or Twitter and see if we can chart the wildlife of the marshes!
 			img.full-width(src="images/leaves.png")
@@ -39,12 +36,10 @@ block content
 
 	div.content-block
 		div.text-block
-			p Map of Walthamstow marshes here
+			p#map Map of Walthamstow marshes here
 
 	div.content-block
-		div.text-block.masonry-block
-			h2 Sightings
-
+		div.text-block.masonry-block#sightings
 			#masonry-layout.masonry-layout
 
 				- each item in data.random

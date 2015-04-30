@@ -43,27 +43,35 @@ function filterTwitterText(tweets){
 	return tweetText;
 }
 
-var instagramRequest = new Promise(function(resolve,reject){
+function getNewContent(res){
+
+	var instagramRequest = new Promise(function(resolve,reject){
     instagram.tags.recent({
 		  name: 'eight17',
 		  complete: function(data){
-
-		    var instagrams = filterThumbnails(data.slice(0,3));
+		    var instagrams = filterThumbnails(data.slice(0,2));
 		    resolve(instagrams);
 		  }
 		});
-});
-
-var twitterRequest = new Promise(function(resolve,reject){
-	client.get('search/tweets', {'q':'#eight17', 'count': '10'}, function(error, tweets, response){
-		// console.log(error, tweets, response);
-	  if (!error) {
-	  	// console.log("TWEETS", tweets);
-	  	var tweetText = filterTwitterText(tweets.statuses);
-	    resolve(tweetText);
-	  }
 	});
-});
+
+	var twitterRequest = new Promise(function(resolve,reject){
+		client.get('search/tweets', {'q':'#eight17', 'count': '10'}, function(error, tweets, response){
+		  if (!error) {
+		  	var tweetText = filterTwitterText(tweets.statuses);
+		    resolve(tweetText);
+		  }
+		});
+	});
+
+	Promise.all([instagramRequest, twitterRequest]).then(function(arrayOfResults) {
+		var contentFeed = randomiseContent(arrayOfResults);
+	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1], random: contentFeed}});
+	});
+
+}
+
+
 
 //https://github.com/coolaj86/knuth-shuffle
 function shuffle(array) {
@@ -95,14 +103,7 @@ function randomiseContent(arrayOfResults){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var instagrams, tweets;
-
-	Promise.all([instagramRequest, twitterRequest]).then(function(arrayOfResults) {
-		var contentFeed = randomiseContent(arrayOfResults);
-		//console.log(contentFeed);
-	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1], random: contentFeed}});
-	});
-  
+	getNewContent(res);
 });
 
 module.exports = router;

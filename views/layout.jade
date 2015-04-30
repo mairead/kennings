@@ -1,11 +1,18 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		div.navigation
+			h1 Eight legged nature trail
+			div.content-block.nav-block
 
-  script(src="javascripts/masonry.pkgd.min.js")
-  script(src="javascripts/imagesloaded.pkgd.min.js")
-  script(src="javascripts/layout.js")
+				a.nav-link(href='#introduction') Introduction
+				a.nav-link(href="#map") Trail Map
+				a.nav-link(href="#sightings") Sightings
+		block content
+
+	script(src="javascripts/masonry.pkgd.min.js")
+	script(src="javascripts/imagesloaded.pkgd.min.js")
+	script(src="javascripts/layout.js")
