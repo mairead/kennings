@@ -46,13 +46,13 @@ block content
 					-if(item.type === 'instagram'){
 						-if(item.imgSize === 'large'){
 							div.user-item.instagram-item.large-item
-								span.title #{item.txt}
+								span.title.caption #{item.txt}
 								a(href='#{item.link}', target="_blank")
 									img.user-imgs(src=item.imgUrl)
 								p.username creator: #{item.user}
 						-}else{
 							div.user-item.instagram-item.small-item
-								span.title #{item.txt}
+								span.title.caption #{item.txt}
 								a(href='#{item.link}', target="_blank")
 									img.user-imgs(src=item.imgUrl)
 								p.username creator: #{item.user}
@@ -61,7 +61,7 @@ block content
 							
 					-}else{
 						div.user-item.tweet-item
-							p #{item.txt}
+							p.caption #{item.txt}
 							p.username creator: #{item.user}
 					-}
 						
