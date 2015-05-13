@@ -1,16 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var instagram = require('instagram-node-lib');
-//var ig = require('instagram-node').instagram();
 var Twitter = require('twitter');
 require("native-promise-only");
 
 instagram.set('client_id', 'b0a36a7bba44441fa73993fd09143663');
 instagram.set('client_secret', '8d714a8a57e54749a02d028ba0548e93');
-
-instagram.set('redirect_uri', '/');
-
-//ig.use({ client_id: 'b0a36a7bba44441fa73993fd09143663',client_secret: '8d714a8a57e54749a02d028ba0548e93' });
 
 var client = new Twitter({
   consumer_key: '1o4X2yoGlw4FvEdHCns8Wg5RB',
@@ -24,18 +19,16 @@ function randomSize(){
 }
 
 function stripHashtags(text){
-	//console.log("b4 hash", text);
 	text = text.replace(/(^|[^&\w'"]+)\#([a-zA-Z0-9_^"^<]+)/g, '');
  	return text;
 }
 
 //regex help from Remy
 //https://github.com/remy/twitterlib/blob/master/twitterlib.js#L81
-
 function addLinks(text){
 	text = text.replace(/[a-z]+:\/\/([a-z0-9-_]+\.[a-z0-9-_:~\+#%&\?\/.=]+[^:\.,\)\s*$])/ig, function(m, link) {
-          return '<a title="' + m + '" href="' + m + '">' + ((link.length > 36) ? link.substr(0, 35) + '&hellip;' : link) + '</a>';
-        })
+    return '<a title="' + m + '" href="' + m + '">' + ((link.length > 36) ? link.substr(0, 35) + '&hellip;' : link) + '</a>';
+  })
  	return text;
 }
 
@@ -45,8 +38,6 @@ function stripLinks(text){
         })
  	return text;
 }
-
-
 	
 function stripSymbols(text){
 	return text.replace("&amp;", "&");
@@ -55,7 +46,6 @@ function stripSymbols(text){
 function augmentTxt(text){
 	text = stripHashtags(text);
 	text = stripSymbols(text);
-	//text = addLinks(text);
 	return text;
 }
 
@@ -64,6 +54,33 @@ function reduceTxt(text){
 	text = stripSymbols(text);
 	text = stripLinks(text);
 	return text;
+}
+
+
+ 
+
+function improveLinks(tweet){
+	var text = tweet.text,
+        i = 0;
+    if (tweet.entities) {
+      // replace urls with expanded urls and let the ify shorten the link
+      if (tweet.entities.urls && tweet.entities.urls.length) {
+        for (i = 0; i < tweet.entities.urls.length; i++) {
+          if (tweet.entities.urls[i].expanded_url) text = text.replace(tweet.entities.urls[i].url, tweet.entities.urls[i].expanded_url); // /g ?
+        }
+      }
+
+      // replace media with url to actual image (or thing?)
+      if (tweet.entities.media && tweet.entities.media.length) {
+        for (i = 0; i < tweet.entities.media.length; i++) {
+          if (tweet.entities.media[i].media_url || tweet.entities.media[i].expanded_url) text = text.replace(tweet.entities.media[i].url, tweet.entities.media[i].media_url ? tweet.entities.media[i].media_url : tweet.entities.media[i].expanded_url); // /g ?
+        }
+      }
+
+    }
+
+    return text;
+
 }
 
 
@@ -82,11 +99,9 @@ function filterThumbnails(data){
 	return instagrams;
 }
 
-
-
 function filterTwitterText(tweets){
 	var tweetText = [];
-	
+	var updatedText;
 	tweets.forEach(function(item){
 		if (item.entities.media){
 			tweetText.push({
@@ -98,12 +113,12 @@ function filterTwitterText(tweets){
 			 	user: item.user.screen_name
 			});
 		}else{
+			updatedText = improveLinks(item);
 			tweetText.push({
-				txt: augmentTxt(item.text),
+				txt: augmentTxt(updatedText),
 			 	type: 'tweet',
 			 	user: item.user.screen_name
 			});
-
 		}
 	});
 	return tweetText;
@@ -114,7 +129,6 @@ function getNewContent(res, req){
     instagram.tags.recent({
 		  name: 'eight17',
 		  complete: function(data){
-		  	// console.log(data);
 		    var instagrams = filterThumbnails(data.slice(0,5));
 		    resolve(instagrams);
 		  }
@@ -125,7 +139,6 @@ function getNewContent(res, req){
 		client.get('search/tweets', {
 			'q':'#eight17',
 			'count': '10'
-			// 'since_id': 
 			}, function(error, tweets, response){
 		  if (!error) {
 		  	var tweetText = filterTwitterText(tweets.statuses);
@@ -138,10 +151,7 @@ function getNewContent(res, req){
 		var contentFeed = randomiseContent(arrayOfResults);
 	  res.render('index', {data: {instagrams: arrayOfResults[0], tweets: arrayOfResults[1], random: contentFeed}});
 	});
-
 }
-
-
 
 //https://github.com/coolaj86/knuth-shuffle
 function shuffle(array) {
@@ -159,10 +169,8 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
-
 
 function randomiseContent(arrayOfResults){
 	var fullContent = [];
@@ -174,33 +182,6 @@ function randomiseContent(arrayOfResults){
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	getNewContent(res, req);
-
-	// instagram.oauth.ask_for_access_token({
- //    request: req,
- //    response: res,
- //    redirect: '/', // optional
- //    complete: function(params, response){
- //    	console.log("complete?", params)
- //    	// console.log("oauth complete",params, response);
- //      params['access_token'];
- //      console.log("params",params['access_token'])
- //      // params['user']
- //      response.writeHead(200, {'Content-Type': 'text/plain'});
- //      // or some other response ended with
- //      response.end();
- //    },
- //    error: function(errorMessage, errorObject, caller, response){
- //      // errorMessage is the raised error message
- //      // errorObject is either the object that caused the issue, or the nearest neighbor
- //      // caller is the method in which the error occurred
- //      response.writeHead(406, {'Content-Type': 'text/plain'});
- //      // or some other response ended with
- //      response.end();
- //    }
- //  });
 });
-
-
-
 
 module.exports = router;
