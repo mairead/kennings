@@ -115,7 +115,7 @@ function getNewContent(res, req){
 		  name: 'eight17',
 		  complete: function(data){
 		  	// console.log(data);
-		    var instagrams = filterThumbnails(data.slice(0,3));
+		    var instagrams = filterThumbnails(data.slice(0,5));
 		    resolve(instagrams);
 		  }
 		});
