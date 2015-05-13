@@ -91,6 +91,7 @@ p{
 	padding: 10px 30px;
 	margin: 0 30px 0 30px;
 }
+
 .masonry-block{
 	background: none;
 }
@@ -184,4 +185,44 @@ h2, .tagline{
 .float-img-right{
 	float: right;
 	margin: 0 0 20px 20px;
+}
+
+.map-block{
+	margin: 30px;
+}
+.map-container{
+	position: relative;
+	width: 533px;
+	height: 437px;
+	margin: 0 auto;
+}
+#map-canvas{
+	width: 533px;
+	height: 437px;
+	margin: 0 auto;
+}
+#route-layer{
+		width: 533px;
+		height: 437px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: 0 auto;
+		opacity: 0.5;
+		background: url(../images/route-layer.png) 0 0 no-repeat;
+		z-index: 2;
+	}
+#show-route button{
+	text-align: center;
+	width: 150px;
+	margin: 0 auto 20px;
+	display: block;
+	color: #fff;
+	background: #507F51;
+	border: 0;
+	font-size: 20px;
+	font-family: 'albertus_mediumregular', "albertus medium", georgia, serif;
+	padding: 10px;
+	// position: absolute;
+	// top:-20px;
 }
