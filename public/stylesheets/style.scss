@@ -49,8 +49,14 @@ a {
 p{
 	color: #7F746B;
 }
-.navigation{
+.title{
 	background: #7F746B;
+	margin: 0 auto;
+}
+
+	
+.navigation{
+	background: #507F51;
 	margin: 0 auto;
 	.text-block{
 		background: none;
@@ -68,7 +74,7 @@ p{
 }
 
 .nav-link:hover, .nav-link:focus{
-	color: #7F746B;
+	color: #99c59a;
 }
 
 .content-block{
@@ -80,7 +86,8 @@ p{
 	padding-top: 40px;
 }
 .nav-block{
-	padding-bottom: 0
+	padding-bottom: 0;
+
 }
 .masonry-layout{
 	margin: 0 30px;

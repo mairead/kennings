@@ -42,8 +42,13 @@ p {
   color: #7F746B;
 }
 
-.navigation {
+.title {
   background: #7F746B;
+  margin: 0 auto;
+}
+
+.navigation {
+  background: #507F51;
   margin: 0 auto;
 }
 .navigation .text-block {
@@ -62,7 +67,7 @@ p {
 }
 
 .nav-link:hover, .nav-link:focus {
-  color: #7F746B;
+  color: #99c59a;
 }
 
 .content-block {
