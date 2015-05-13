@@ -39,6 +39,14 @@ function addLinks(text){
  	return text;
 }
 
+function stripLinks(text){
+	text = text.replace(/[a-z]+:\/\/([a-z0-9-_]+\.[a-z0-9-_:~\+#%&\?\/.=]+[^:\.,\)\s*$])/ig, function(m, link) {
+          return '';
+        })
+ 	return text;
+}
+
+
 	
 function stripSymbols(text){
 	return text.replace("&amp;", "&");
@@ -48,6 +56,13 @@ function augmentTxt(text){
 	text = stripHashtags(text);
 	text = stripSymbols(text);
 	//text = addLinks(text);
+	return text;
+}
+
+function reduceTxt(text){
+	text = stripHashtags(text);
+	text = stripSymbols(text);
+	text = stripLinks(text);
 	return text;
 }
 
@@ -76,7 +91,7 @@ function filterTwitterText(tweets){
 		if (item.entities.media){
 			tweetText.push({
 				imgUrl: item.entities.media[0].media_url,
-				txt: augmentTxt(item.text),
+				txt: reduceTxt(item.text),
 			 	type: 'instagram',
 			 	imgSize: randomSize(),
 			 	link: item.entities.media[0].url,
@@ -96,17 +111,6 @@ function filterTwitterText(tweets){
 
 function getNewContent(res, req){
 	var instagramRequest = new Promise(function(resolve,reject){
-
-
-  // return null;
-
-
-		// ig.tag_media_recent('eight17', function(err, medias, pagination, remaining, limit) {
-		// 	console.log(medias)
-		// });
-		// ig.tag('eight17', function(err, result, remaining, limit) {
-		// 	console.log("results", result)
-		// });
     instagram.tags.recent({
 		  name: 'eight17',
 		  complete: function(data){
@@ -124,7 +128,6 @@ function getNewContent(res, req){
 			// 'since_id': 
 			}, function(error, tweets, response){
 		  if (!error) {
-
 		  	var tweetText = filterTwitterText(tweets.statuses);
 		    resolve(tweetText);
 		  }
@@ -172,29 +175,29 @@ function randomiseContent(arrayOfResults){
 router.get('/', function(req, res, next) {
 	getNewContent(res, req);
 
-	instagram.oauth.ask_for_access_token({
-    request: req,
-    response: res,
-    redirect: '/', // optional
-    complete: function(params, response){
-    	console.log("complete?", params)
-    	// console.log("oauth complete",params, response);
-      params['access_token'];
-      console.log("params",params['access_token'])
-      // params['user']
-      response.writeHead(200, {'Content-Type': 'text/plain'});
-      // or some other response ended with
-      response.end();
-    },
-    error: function(errorMessage, errorObject, caller, response){
-      // errorMessage is the raised error message
-      // errorObject is either the object that caused the issue, or the nearest neighbor
-      // caller is the method in which the error occurred
-      response.writeHead(406, {'Content-Type': 'text/plain'});
-      // or some other response ended with
-      response.end();
-    }
-  });
+	// instagram.oauth.ask_for_access_token({
+ //    request: req,
+ //    response: res,
+ //    redirect: '/', // optional
+ //    complete: function(params, response){
+ //    	console.log("complete?", params)
+ //    	// console.log("oauth complete",params, response);
+ //      params['access_token'];
+ //      console.log("params",params['access_token'])
+ //      // params['user']
+ //      response.writeHead(200, {'Content-Type': 'text/plain'});
+ //      // or some other response ended with
+ //      response.end();
+ //    },
+ //    error: function(errorMessage, errorObject, caller, response){
+ //      // errorMessage is the raised error message
+ //      // errorObject is either the object that caused the issue, or the nearest neighbor
+ //      // caller is the method in which the error occurred
+ //      response.writeHead(406, {'Content-Type': 'text/plain'});
+ //      // or some other response ended with
+ //      response.end();
+ //    }
+ //  });
 });
 
 
