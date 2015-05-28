@@ -127,7 +127,7 @@ function getNewContent(res, req){
     instagram.tags.recent({
 		  name: 'eight17',
 		  complete: function(data){
-		    var instagrams = filterThumbnails(data.slice(0,5));
+		    var instagrams = filterThumbnails(data.slice(0,8));
 		    resolve(instagrams);
 		  }
 		});

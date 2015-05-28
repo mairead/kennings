@@ -216,16 +216,16 @@ h2, .tagline{
 	margin: 0 auto;
 }
 #route-layer{
-		width: 533px;
-		height: 437px;
-		position: absolute;
-		top: 0;
-		left: 0;
-		margin: 0 auto;
-		opacity: 0.5;
-		background: url(../images/route-layer.png) 0 0 no-repeat;
-		z-index: 2;
-	}
+	width: 533px;
+	height: 437px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0 auto;
+	opacity: 0.5;
+	background: url(../images/route-layer.png) 0 0 no-repeat;
+	z-index: 2;
+}
 #show-route button{
 	text-align: center;
 	width: 150px;
